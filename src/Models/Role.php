@@ -1,6 +1,6 @@
 <?php
 
-namespace Christianhanggra\Bizzy\Select\Permission\Models;
+namespace Christianhanggra\Bizzy\Permission\Models;
 
 use Moloquent\Eloquent\Model;
 

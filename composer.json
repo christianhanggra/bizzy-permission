@@ -1,13 +1,13 @@
 {
-    "name": "christianhanggra/bizzy-select-permission",
-    "description": "Bizzy Select Permission Repository for Laravel 5.3",
+    "name": "christianhanggra/bizzy-permission",
+    "description": "Bizzy Permission Repository for Laravel 5.3",
     "keywords": [
         "laravel",
         "moloquent",
         "bizzy",
         "select"
     ],
-    "homepage": "https://github.com/christianhanggra/bizzy-select-permission",
+    "homepage": "https://github.com/christianhanggra/bizzy-permission",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Christianhanggra\\Bizzy\\Select\\Permission\\": "src/"
+            "Christianhanggra\\Bizzy\\Permission\\": "src/"
         }
     },
     "minimum-stability": "dev",

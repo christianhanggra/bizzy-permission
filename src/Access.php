@@ -1,10 +1,10 @@
 <?php
 
-namespace Christianhanggra\Bizzy\Select\Permission;
+namespace Christianhanggra\Bizzy\Permission;
 
 use Illuminate\Http\Request;
-use Christianhanggra\Bizzy\Select\Permission\Contracts\AccessInterface;
-use Christianhanggra\Bizzy\Select\Permission\Repositories\UserRepository;
+use Christianhanggra\Bizzy\Permission\Contracts\AccessInterface;
+use Christianhanggra\Bizzy\Permission\Repositories\UserRepository;
 
 class Access implements AccessInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Christianhanggra\Bizzy\Select\Permission\Contracts;
+namespace Christianhanggra\Bizzy\Permission\Contracts;
 
 Interface AccessInterface
 {

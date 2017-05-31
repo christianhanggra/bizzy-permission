@@ -1,8 +1,8 @@
 <?php
 
-namespace Christianhanggra\Bizzy\Select\Permission\Repositories;
+namespace Christianhanggra\Bizzy\Permission\Repositories;
 
-use Christianhanggra\Bizzy\Select\Permission\Models\User;
+use Christianhanggra\Bizzy\Permission\Models\User;
 
 class UserRepository
 {
