@@ -5,20 +5,24 @@ namespace Christianhanggra\Bizzy\Permission;
 use Illuminate\Http\Request;
 use Christianhanggra\Bizzy\Permission\Contracts\AccessInterface;
 use Christianhanggra\Bizzy\Permission\Repositories\UserRepository;
+use Christianhanggra\Bizzy\Permission\Repositories\PortalRepository;
 
 class Access implements AccessInterface
 {
 	protected $request;
 	protected $userRepository;
+	protected $portalRepository;
 
 	/*
 	 * Intialize depedency injection
 	 */
 	function __construct(Request $request,
-						 UserRepository $userRepository)
+						 UserRepository $userRepository,
+						 PortalRepository $portalRepository)
 	{
 		$this->request = $request;
 		$this->userRepository = $userRepository;
+		$this->portalRepository = $portalRepository;
 	}
 
 	/*
@@ -43,6 +47,48 @@ class Access implements AccessInterface
 	public function user()
 	{
 		return $this->userRepository->findByUserId($this->id());
+	}
+
+	/*
+	 * Function portal
+	 *
+	 * A user may have one of portal
+	 *
+	 * @param string $id: primary key portal data
+	 * @return array
+	 */
+	public function portal($id)
+	{
+		return $this->portalRepository->find($id);
+	}
+
+	/*
+	 * Function userportal
+	 *
+	 * Mixed user data with related portal data
+	 *
+	 * @return array
+	 */
+	public function userportal()
+	{
+        if(! $user = $this->user()) 
+        	return false;
+
+        if(! $portal = $this->portal($user->portal_id)) 
+        	return false;
+
+        return [
+            'user' => [
+                'user_id' => $user->user_id,
+                'contact_id' => $user->contact_id,
+                'portal_id' => $portal->id,
+            ],
+            'portal' => [
+                'company_id' => $portal->company_id,
+                'magento_customer_id' => $portal->magento_customer_id,
+                'domain' => $portal->domain,
+            ],
+        ];
 	}
 
 	/*
@@ -77,7 +123,7 @@ class Access implements AccessInterface
 	{
 		$data = [];
 		$user = $this->user();
-		
+
 		if($permissions = $user->permissions){
 			foreach($permissions as $row){
 				$data[] = $row->permission->name;

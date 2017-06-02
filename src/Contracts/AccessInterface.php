@@ -23,6 +23,25 @@ Interface AccessInterface
 	public function user();
 	
 	/*
+	 * Function portal
+	 *
+	 * A user may have one of portal
+	 *
+	 * @param string $id: primary key portal data
+	 * @return array
+	 */
+	public function portal($id);
+
+	/*
+	 * Function userportal
+	 *
+	 * Mixed user data with related portal data
+	 *
+	 * @return array
+	 */
+	public function userportal();
+
+	/*
 	 * Function roles
 	 *
 	 * A user may have multiple roles
