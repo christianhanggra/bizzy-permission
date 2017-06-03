@@ -5,7 +5,8 @@
         "laravel",
         "moloquent",
         "bizzy",
-        "select"
+        "select",
+        "permission"
     ],
     "homepage": "https://github.com/christianhanggra/bizzy-permission",
     "license": "MIT",
@@ -19,6 +20,9 @@
     ],
     "require": {
         "nesbot/carbon": "~1.21",
+        "illuminate/support": "5.3.*",
+        "illuminate/contracts": "5.3.*",
+        "illuminate/container": "5.3.*",
         "moloquent/moloquent": "^0.3.0"
     },
     "autoload": {
