@@ -78,15 +78,18 @@ class Access implements AccessInterface
         	return false;
 
         return [
-            'user' => [
-                'user_id' => $user->user_id,
-                'contact_id' => $user->contact_id,
-                'portal_id' => $portal->id,
-            ],
+            'user_id' => $user->user_id,
+            'portal_id' => $portal->id,
             'portal' => [
-                'company_id' => $portal->company_id,
-                'magento_customer_id' => $portal->magento_customer_id,
-                'domain' => $portal->domain,
+	            'magento' => [
+	            	'customer_id' => $portal->magento['customer_id'],
+	            	'company_id' => $portal->magento['company_id'],
+	            ],
+	            'netsuite' => [
+	            	'customer_id' => $portal->netsuite['customer_id'],
+	            	'contact_id' => $portal->netsuite['contact_id'],
+	            ],
+            	'domain' => $portal->domain,
             ],
         ];
 	}
