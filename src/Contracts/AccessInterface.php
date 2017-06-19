@@ -76,7 +76,18 @@ Interface AccessInterface
 	 * @return array
 	 */
 	public function products();
-	
+
+	/*
+	 * Function contains
+	 *
+	 * Get comparison search array value in of array
+	 *
+	 * @param array $needle: the searched value
+	 * @param array $haystack: the array
+	 * @return bool
+	 */
+	public function contains($needle, $haystack);
+
 	/*
 	 * Function hasRole
 	 *
@@ -86,35 +97,36 @@ Interface AccessInterface
 	 * @return array
 	 */
 	public function hasRole($name);
-	
-	/*
-	 * Function hasGroup
-	 *
-	 * Determine if the user has (one of) the given group(s)
-	 *
-	 * @param string|array $name: one or array of groups
-	 * @return array
-	 */
-	public function hasGroup($id);
-	
+
 	/*
 	 * Function hasProduct
 	 *
 	 * Determine if the user has (one of) the given product(s)
 	 *
-	 * @param string|array $name: one or array of products
+	 * @param string $id: one or array of products
 	 * @return array
 	 */
 	public function hasProduct($id);
+
+	/*
+	 * Function hasGroup
+	 *
+	 * Determine if the user has (one of) the given group(s)
+	 *
+	 * @param string $id: one or array of groups
+	 * @return array
+	 */
+	public function hasGroup($id);
 	
 	/*
 	 * Function can
 	 *
 	 * Determine if the entity has a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
+
 	public function can($name);
 
 	/*
@@ -122,7 +134,7 @@ Interface AccessInterface
 	 *
 	 * Determine if the entity does not have a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
 	public function cant($name);
@@ -132,7 +144,7 @@ Interface AccessInterface
 	 *
 	 * Determine if the entity does not have a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
 	public function cannot($name);

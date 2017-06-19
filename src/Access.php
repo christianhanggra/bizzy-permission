@@ -91,6 +91,7 @@ class Access implements AccessInterface
 	            ],
             	'domain' => $portal->domain,
             ],
+            'status' => $user->status,
         ];
 	}
 
@@ -127,11 +128,23 @@ class Access implements AccessInterface
 		$data = [];
 		$user = $this->user();
 
+		if($roles = $user->roles){
+			foreach($roles as $row){
+				if($permissions = $row->role->permissions){
+					foreach($permissions as $row){
+						$data[] = $row->permission->name;
+					}
+				}
+			}
+		}
+
 		if($permissions = $user->permissions){
 			foreach($permissions as $row){
 				$data[] = $row->permission->name;
 			}
 		}
+
+		$data = array_keys(array_flip($data));
 
 		return $data;
 	}
@@ -191,6 +204,33 @@ class Access implements AccessInterface
 
 		return $data;
 	}
+	
+	/*
+	 * Function contains
+	 *
+	 * Get comparison search array value in of array
+	 *
+	 * @param array $needle: the searched value
+	 * @param array $haystack: the array
+	 * @return bool
+	 */
+	public function contains($needle, $haystack)
+	{
+		$find = 0;
+		$count = count($needle);
+
+		if(! $count) return false;
+
+		if($haystack){
+			foreach($needle as $search){
+				if(in_array($search, $haystack)){
+					$find++;
+				}
+			}
+		}
+
+		return ($count === $find);
+	}
 
 	/*
 	 * Function hasRole
@@ -202,26 +242,11 @@ class Access implements AccessInterface
 	 */
 	public function hasRole($name)
 	{
-		return in_array($name, $this->roles());
-	}
-
-	/*
-	 * Function hasGroup
-	 *
-	 * Determine if the user has (one of) the given group(s)
-	 *
-	 * @param string|array $name: one or array of groups
-	 * @return array
-	 */
-	public function hasGroup($id)
-	{
-		if($groups = $this->groups()){
-			foreach($groups as $row){
-				if($row['id'] == $id) return true;
-			}
+		if(is_array($name)){
+			return $this->contains($name, $this->roles());
+		}else{
+			return in_array($name, $this->roles());
 		}
-
-		return false;
 	}
 
 	/*
@@ -229,7 +254,7 @@ class Access implements AccessInterface
 	 *
 	 * Determine if the user has (one of) the given product(s)
 	 *
-	 * @param string|array $name: one or array of products
+	 * @param string $id: one or array of products
 	 * @return array
 	 */
 	public function hasProduct($id)
@@ -244,11 +269,30 @@ class Access implements AccessInterface
 	}
 
 	/*
+	 * Function hasGroup
+	 *
+	 * Determine if the user has (one of) the given group(s)
+	 *
+	 * @param string $id: one or array of groups
+	 * @return array
+	 */
+	public function hasGroup($id)
+	{
+		if($groups = $this->groups()){
+			foreach($groups as $row){
+				if($row['id'] == $id) return true;
+			}
+		}
+
+		return false;
+	}
+
+	/*
 	 * Function can
 	 *
 	 * Determine if the entity has a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
 	public function can($name)
@@ -261,7 +305,7 @@ class Access implements AccessInterface
 	 *
 	 * Determine if the entity does not have a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
 	public function cant($name)
@@ -278,7 +322,7 @@ class Access implements AccessInterface
 	 *
 	 * Determine if the entity does not have a given ability
 	 *
-	 * @param string: one of permissions
+	 * @param string $name: one of permissions
 	 * @return bool
 	 */
 	public function cannot($name)
