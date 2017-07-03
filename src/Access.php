@@ -4,24 +4,24 @@ namespace Christianhanggra\Bizzy\Permission;
 
 use Illuminate\Http\Request;
 use Christianhanggra\Bizzy\Permission\Contracts\AccessInterface;
-use Christianhanggra\Bizzy\Permission\Repositories\UserRepository;
+use Christianhanggra\Bizzy\Permission\Repositories\EmployeeRepository;
 use Christianhanggra\Bizzy\Permission\Repositories\PortalRepository;
 
 class Access implements AccessInterface
 {
 	protected $request;
-	protected $userRepository;
+	protected $employeeRepository;
 	protected $portalRepository;
 
 	/*
 	 * Intialize depedency injection
 	 */
 	function __construct(Request $request,
-						 UserRepository $userRepository,
+						 EmployeeRepository $employeeRepository,
 						 PortalRepository $portalRepository)
 	{
 		$this->request = $request;
-		$this->userRepository = $userRepository;
+		$this->employeeRepository = $employeeRepository;
 		$this->portalRepository = $portalRepository;
 	}
 
@@ -46,7 +46,7 @@ class Access implements AccessInterface
 	 */
 	public function user()
 	{
-		return $this->userRepository->findByUserId($this->id());
+		return $this->employeeRepository->findByUserId($this->id());
 	}
 
 	/*
@@ -82,7 +82,7 @@ class Access implements AccessInterface
             'portal_id' => $portal->id,
             'portal' => [
 	            'magento' => [
-	            	'customer_id' => $portal->magento['customer_id'],
+	            	'proxy_customer_id' => $portal->magento['proxy_customer_id'],
 	            	'company_id' => $portal->magento['company_id'],
 	            ],
 	            'netsuite' => [
@@ -90,6 +90,14 @@ class Access implements AccessInterface
 	            	'contact_id' => $portal->netsuite['contact_id'],
 	            ],
             	'domain' => $portal->domain,
+            ],
+            'employee' => [
+            	'magento' => [
+            		'companyemployee_id' => $user->magento['companyemployee_id'],
+            	],
+            	'netsuite' => [
+            		'contact_id' => $user->netsuite['contact_id']
+            	],
             ],
             'status' => $user->status,
         ];

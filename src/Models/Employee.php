@@ -4,10 +4,10 @@ namespace Christianhanggra\Bizzy\Permission\Models;
 
 use Moloquent\Eloquent\Model;
 
-class User extends Model
+class Employee extends Model
 {
     protected $connection = 'mongodb_select';
-    protected $collection = 'user';
+    protected $collection = 'employee';
 
     public function scopeOfUserId($query, $id)
     {
