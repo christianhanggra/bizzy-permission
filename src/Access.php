@@ -95,9 +95,6 @@ class Access implements AccessInterface
             	'magento' => [
             		'companyemployee_id' => $user->magento['companyemployee_id'],
             	],
-            	'netsuite' => [
-            		'contact_id' => $user->netsuite['contact_id']
-            	],
             ],
             'status' => $user->status,
         ];
