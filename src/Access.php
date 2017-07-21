@@ -173,6 +173,8 @@ class Access implements AccessInterface
 						$data[] = [
 							'id' => $res->id,
 							'name' => $res->group->name,
+							'role' => $row->role->name,
+							'product' => $res->group->product->name,
 						];
 					}
 				}
